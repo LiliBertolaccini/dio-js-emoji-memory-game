@@ -67,7 +67,6 @@ h2 {
   align-items: center;
   justify-content: center;
   background-color: #fff;
-
   font-size: 3em;
   transform: rotateY(180deg);
   transition: 0.25s;
