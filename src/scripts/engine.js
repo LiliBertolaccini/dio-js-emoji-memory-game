@@ -1,48 +1,54 @@
-const emojis = [
-  "😂",
-  "😂",
-  "😃",
-  "😃",
-  "🤬",
-  "🤬",
-  "😢",
-  "😢",
-  "🤔",
-  "🤔",
-  "😘",
-  "😘",
-  "😱",
-  "😱",
-  "🙄",
-  "🙄",
+const images = [
+  "./images/baleia.png",
+  "./images/baleia.png",
+  "./images/book.png",
+  "./images/book.png",
+  "./images/carro.png",
+  "./images/carro.png",
+  "./images/cat.png",
+  "./images/cat.png",
+  "./images/espada.png",
+  "./images/espada.png",
+  "./images/hamburguer.png",
+  "./images/hamburguer.png",
+  "./images/maca.png",
+  "./images/maca.png",
+  "./images/robo.png",
+  "./images/robo.png",
 ];
+
 let openCards = [];
 
-let shuffleEmojis = emojis.sort(() => (Math.random() > 0.5 ? 2 : -1));
+let shuffleImages = images.sort(() => (Math.random() > 0.5 ? 2 : -1));
 
-for (let i = 0; i < emojis.length; i++) {
+const gameContainer = document.querySelector(".game");
+
+for (let i = 0; i < images.length; i++) {
   let box = document.createElement("div");
   box.className = "item";
-  box.innerHTML = shuffleEmojis[i];
+  const image = document.createElement("img");
+  image.src = images[i];
+  box.appendChild(image);
   box.onclick = handleClick;
   document.querySelector(".game").appendChild(box);
 }
 
 function handleClick() {
-  if (openCards.length < 2) {
+  if (openCards.length < 2 && !this.classList.contains("boxOpen")) {
     this.classList.add("boxOpen");
     openCards.push(this);
   }
 
-  if (openCards.length == 2) {
+  if (openCards.length === 2) {
     setTimeout(checkMatch, 500);
   }
-
-  console.log(openCards);
 }
 
 function checkMatch() {
-  if (openCards[0].innerHTML === openCards[1].innerHTML) {
+  const image1Src = openCards[0].querySelector("img").src;
+  const image2Src = openCards[1].querySelector("img").src;
+
+  if (image1Src === image2Src) {
     openCards[0].classList.add("boxMatch");
     openCards[1].classList.add("boxMatch");
   } else {
@@ -52,7 +58,7 @@ function checkMatch() {
 
   openCards = [];
 
-  if (document.querySelectorAll(".boxMatch").length === emojis.length) {
-    alert("Você venceu !");
+  if (document.querySelectorAll(".boxMatch").length === images.length) {
+    alert("Você venceu!");
   }
 }
